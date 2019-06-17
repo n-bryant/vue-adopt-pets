@@ -6,7 +6,7 @@
 
     <button @click="togglePetForm" class="btn btn-primary">Add New Listing</button>
 
-    <b-form @submit.prevent="handleSubmit" v-if="displayPetForm">
+    <b-form @submit.prevent="handleSubmit" v-if="displayPetForm" class="add-listing-form">
       <b-form-group id="input-group-1" label="Pet's Name:" label-for="input-1">
         <b-form-input
           id="input-1"
@@ -26,6 +26,26 @@
         ></b-form-select>
       </b-form-group>
 
+      <b-form-group id="input-group-1" label="Breed:" label-for="input-1">
+        <b-form-input
+          id="input-1"
+          type="text"
+          v-model="formData.breed"
+          required
+          placeholder="Enter breed"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-1" label="Color:" label-for="input-1">
+        <b-form-input
+          id="input-1"
+          type="text"
+          v-model="formData.color"
+          required
+          placeholder="Enter color"
+        ></b-form-input>
+      </b-form-group>
+
       <b-form-group id="input-group-2" label="Pet's Age:" label-for="input-3">
         <b-form-input
           id="input-3"
@@ -36,10 +56,41 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
+      <b-form-group id="input-group-2" label="Pet's Weight:" label-for="input-3">
+        <b-form-input
+          id="input-3"
+          type="number"
+          v-model="formData.weight"
+          required
+          placeholder="Enter weight"
+        ></b-form-input>
+      </b-form-group>
 
+      <b-form-group id="input-group-1" label="Location:" label-for="input-1">
+        <b-form-input
+          id="input-1"
+          type="text"
+          v-model="formData.location"
+          required
+          placeholder="Enter location"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-1" label="Notes:" label-for="input-1">
+        <b-form-input
+          id="input-1"
+          type="text"
+          v-model="formData.notes"
+          required
+          placeholder="Enter notes"
+        ></b-form-input>
+      </b-form-group>
+
+      <div class="action-buttons-container">
+        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+      </div>
+    </b-form>
   </div>
 </template>
 
@@ -53,8 +104,13 @@ export default {
       displayPetForm: false,
       formData: {
         name: '',
-        species: null,
-        age: 0
+        breed: '',
+        color: '',
+        type: '',
+        age: 0,
+        weight: 0,
+        location: '',
+        notes: ''
       }
     }
   },
@@ -73,12 +129,17 @@ export default {
       this.displayPetForm = !this.displayPetForm
     },
     handleSubmit () {
-      const { type, name, age } = this.formData
+      const { type, name, breed, color, age, weight, location, notes } = this.formData
       const payload = {
         type,
         pet: {
           name,
-          age
+          breed,
+          color,
+          age,
+          weight,
+          location,
+          notes
         }
       }
       this.addPet(payload)
@@ -86,8 +147,13 @@ export default {
       // reset form after submit
       this.formData = {
         name: '',
-        species: null,
-        age: 0
+        breed: '',
+        color: '',
+        type: '',
+        age: 0,
+        weight: 0,
+        location: '',
+        notes: ''
       }
     }
   }
