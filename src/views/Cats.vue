@@ -7,7 +7,7 @@
 <script>
 import { mapState } from 'vuex'
 import PetTable from '@/components/PetTable.vue'
-import FIELDS from "./constants"
+import FIELDS from './constants'
 
 export default {
   components: {
